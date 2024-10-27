@@ -22,7 +22,7 @@ def viewstudent(request):
 
 def assign(request, id):
    
-    # st = get_object_or_404(Student, pk=id)
+    st = get_object_or_404(Student, pk=id)
     # print(st.semester)
     # print(f"Found student: {st.name},id:{st.id} Semester: {st.semester}")  
     if st.semester == 1:
