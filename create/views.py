@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
-from .models import Student
+from .models import Student,Semester1
 
 # Create your views here.
 def createstudent(request):
@@ -21,13 +21,38 @@ def viewstudent(request):
 
 
 def assign(request, id):
-   
     st = get_object_or_404(Student, pk=id)
-    # print(st.semester)
-    # print(f"Found student: {st.name},id:{st.id} Semester: {st.semester}")  
+
     if st.semester == 1:
-        print("Rendering sem1.html")  
+        if request.method == "POST":
+            digital = request.POST.get("digital")
+            cprogramming = request.POST.get("cprogramming")
+            cfa = request.POST.get("cfa")
+            english = request.POST.get("english")
+            
+            # Save the data to Semester1 model
+            semester1 = Semester1(digital=digital, cprogramming=cprogramming, cfa=cfa, english=english)
+            semester1.save()
+            
+            return HttpResponse("Marks successfully inserted")
+        
         return render(request, "sem1.html", {"st": st})
+    
     else:
-        return HttpResponse("This functionality is not available for this semester.")
+        return HttpResponse("no semester matches")
+    
+
+def viewmarks(request,id):
+    marks=get_object_or_404(Semester1,pk=id)
+    st=get_object_or_404(Student,pk=id)
+    percentage=((marks.digital + marks.cprogramming + marks.cfa + marks.english)/400)*100
+    return render(request,"viewmarks.html",{
+        "percentage":percentage,
+        "st":st,
+        "marks":marks
+    })
+
+
+
+
 

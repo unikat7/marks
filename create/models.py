@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 class Student(models.Model):
     name=models.CharField(max_length=255,blank=False,null=True)
     address=models.CharField(max_length=255,blank=False,null=True)
-    semester=models.CharField(max_length=255,blank=False,null=True)
+    semester=models.IntegerField(blank=False,null=False)
 
 class Teacher(models.Model):
     name=models.CharField(max_length=255,blank=False,null=True)
@@ -13,6 +13,13 @@ class Teacher(models.Model):
     password=models.CharField(max_length=255,blank=False,null=True)
     def set_password(self,password):
         self.password=make_password(password)
+
+
+class Semester1(models.Model):
+    digital=models.IntegerField(null=False,blank=False)
+    cprogramming=models.IntegerField(null=False,blank=False)
+    cfa=models.IntegerField(null=False,blank=False)
+    english=models.IntegerField(null=False,blank=False)
 
 
 

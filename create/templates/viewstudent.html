@@ -31,7 +31,7 @@
             <td>{{st.semester}}</td>
             <td>
                 <a href="{% url 'assign' st.id %}">Assign marks</a>
-                <a href="">View marks</a>
+                <a href="{% url 'viewmarks' st.id %}">View marks</a>
             </td>
          {% endfor %}
         </tbody>
