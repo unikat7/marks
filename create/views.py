@@ -4,14 +4,18 @@ from .models import Student,Semester1
 
 # Create your views here.
 def createstudent(request):
+    success=False
     if request.method=="POST":
         name=request.POST.get("name")
         address=request.POST.get("address")
         semester=request.POST.get("semester")
         students=Student(name=name,address=address,semester=semester)
         students.save()
-        return HttpResponse("Student inserted successfully")
-    return render(request,"createstudent.html")
+        success=True
+    context={
+            "success":success
+        }
+    return render(request,"createstudent.html",context)
 
 def viewstudent(request):
     students=Student.objects.all()
@@ -50,7 +54,19 @@ def viewmarks(request,id):
         "percentage":percentage,
         "st":st,
         "marks":marks
+
     })
+
+def home(request):
+    st=Student.objects.all()
+    students=st.count()
+    context={
+        "students":students
+    }
+    return render(request,"home.html",context)
+    
+
+
 
 
 

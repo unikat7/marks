@@ -12,6 +12,9 @@
     <title>Hello, world!</title>
   </head>
   <body>
+    <div class="alert alert-danger" role="alert">
+    Your form submission is {{success}}
+    </div>
     
     <form action="/sms/create/" method="post">
         {% csrf_token %}
